@@ -1,0 +1,44 @@
+name: build code-server for rust
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+  push:
+    branches:
+      - main
+    paths:
+      - rust/** # Need to change for each language
+jobs:
+  push:
+    name: "flask:code-server-for-rust_${{ matrix.tag }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tag:
+          - bookworm
+          - slim-bookworm
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-buildx-action@v2
+        with:
+          buildkitd-flags: --debug
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name : Add short sha
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | head -c7)" >> $GITHUB_ENV
+      - uses: docker/build-push-action@v4
+        with:
+          context: ./rust # Need to change for each language
+          file: ./rust/${{ matrix.tag }}/Dockerfile # Need to change for each language
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/nlkomaru/flask/rust_${{ matrix.tag }}:latest
+            ghcr.io/nlkomaru/flask/rust_${{ matrix.tag }}:${{ env.GITHUB_SHA_SHORT }}
+          cache-from: type=gha,scope=rust-${{ matrix.tag }}
+          cache-to: type=gha,mode=max,scope=rust-${{ matrix.tag }}
