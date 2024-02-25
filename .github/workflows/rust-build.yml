@@ -16,7 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - bookworm
+          - ssh-bookworm
+          - code-server-buster
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
