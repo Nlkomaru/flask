@@ -11,8 +11,9 @@ RUN apt-get update && apt-get install -y curl pwgen
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
 RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.0
-RUN export PATH=$PATH:/usr/local/cargo/bin
+
 COPY ./atcoder /workspace
+COPY ./../settingas.json /root/.local/share/code-server/User/settings.json
 
 RUN code-server \
     --install-extension rust-lang.rust-analyzer \
