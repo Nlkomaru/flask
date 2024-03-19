@@ -10,8 +10,15 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN apt-get update && apt-get install -y curl pwgen
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --help
-ENV PATH="/root/.cargo/bin:$PATH"
+ENV RUST_HOME /usr/local/lib/rust
+ENV RUSTUP_HOME ${RUST_HOME}/rustup
+ENV CARGO_HOME ${RUST_HOME}/cargo
+RUN mkdir /usr/local/lib/rust && \
+    chmod 0755 $RUST_HOME
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh \
+    && chmod +x ${RUST_HOME}/rustup.sh \
+    && ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path
+ENV PATH $PATH:$CARGO_HOME/bin
 
 RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.0
 
