@@ -10,7 +10,7 @@ on:
       - rust/** # Need to change for each language
 jobs:
   push:
-    name: "flask:code-server-for-rust_${{ matrix.tag }}"
+    name: "flask:rust_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
