@@ -8,7 +8,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN apt-get update -y \
     && apt-get install -y openssh-server lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6
     
-RUN  rustup install 1.42.0 && rustup default 1.42.0 && cargo install cargo-compete
+RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.0
+RUN export PATH=$PATH:/usr/local/cargo/bin
 
 COPY ./atcoder /workspace
 
