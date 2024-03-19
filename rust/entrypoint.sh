@@ -1,5 +1,8 @@
 #!/bin/bash
 
+rustup -V
+cargo -V
+
 PASSWORD=$(pwgen -s 12 1)
 echo $PASSWORD
 export PASSWORD=$PASSWORD
