@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source="https://github.com/Nlkomaru/flask"
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl pwgen
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
 COPY ./atcoder /workspace
