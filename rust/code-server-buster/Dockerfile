@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH rust:buster
+FROM --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
 
 EXPOSE 8080
 
@@ -10,6 +10,9 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN apt-get update && apt-get install -y curl pwgen
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --help
+ENV PATH="/root/.cargo/bin:$PATH"
+
 RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.0
 
 COPY ./atcoder /workspace
@@ -20,7 +23,9 @@ RUN code-server \
     --install-extension vadimcn.vscode-lldb \
     --install-extension swellaby.vscode-rust-test-adapter \
     --install-extension serayuzgur.crates \
-    --install-extension tamasfe.even-better-toml
+    --install-extension tamasfe.even-better-toml \
+    --install-extension JScearcy.rust-doc-viewer \
+    --install-extension dustypomerleau.rust-syntax
 
 COPY ./../entrypoint.sh /entrypoint.sh
 CMD [ "/bin/bash", "/entrypoint.sh" ]

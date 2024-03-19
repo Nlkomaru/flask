@@ -1,6 +1,3 @@
 {
-    "workbench.colorTheme": "Default Dark Modern",
-    "terminal.integrated.env.linux": {
-        "PATH": "/usr/local/cargo/bin/cargo:/usr/local/cargo/bin/rustc:/usr/local/cargo/bin/rustup"
-    }
+    "workbench.colorTheme": "Default Dark Modern"
 }
