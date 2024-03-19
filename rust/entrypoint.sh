@@ -1,7 +1,5 @@
 #!/bin/bash
 
-rustup -V
-cargo -V
+export PASSWORD=$(pwgen -s 12 1)
 
-cat /root/.config/code-server/config.yaml
-code-server --bind-addr 0.0.0.0:8080
+code-server --bind-addr 0.0.0.0:8080 /workspace

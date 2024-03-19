@@ -10,6 +10,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN apt-get update && apt-get install -y curl
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
+COPY ./atcoder /workspace
+
 RUN code-server \
     --install-extension rust-lang.rust-analyzer \
     --install-extension vadimcn.vscode-lldb \
