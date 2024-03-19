@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source="https://github.com/Nlkomaru/flask"
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 RUN apt-get update -y \
-    && apt-get install -y openssh-server lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 pwgen build-essential
+    && apt-get install -y openssh-server lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 pwgen build-essential pkg-config libssl-dev
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
 ENV RUST_HOME /usr/local/lib/rust
