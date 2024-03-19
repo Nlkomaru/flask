@@ -12,7 +12,7 @@ RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.
 RUN export PATH=$PATH:/usr/local/cargo/bin
 
 COPY ./atcoder /workspace
-COPY ./../settingas.json /root/.local/share/code-server/User/settings.json
+COPY ./../settings.json /root/.local/share/code-server/User/settings.json
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:pa55w0rd' | chpasswd
