@@ -10,7 +10,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN apt-get update && apt-get install -y curl pwgen
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
-RUN cargo install cargo-compete && rustup install 1.42.0 && rustup default 1.42.0
+RUN  rustup install 1.42.0 && rustup default 1.42.0 && cargo install cargo-compete
+RUN  export PATH=$PATH:/usr/local/cargo/bin
 COPY ./atcoder /workspace
 
 RUN code-server \
